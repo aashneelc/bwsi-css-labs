@@ -54,8 +54,8 @@ def main():
     print(f"===== Simple Calculator =====")
 
     # Ask the user for sample input    
-    num1 = float(input("Enter the first number: "))
-    num2 = float(input("Enter the second number: "))
+    num1 = request_sanitized_number("Enter the first number: ")
+    num2 = request_sanitized_number("Enter the second number: ")
     operation = input("Enter the operation (add, subtract, multiply, divide): ").strip().lower()
 
     # Perform the calculation and display the result
@@ -65,3 +65,24 @@ def main():
 
 if __name__ == "__main__":
     main()
+import pytest
+from labs.lab_1.lab_1b import simple_calculator
+def test_addition():
+    assert simple_calculator("add", 5, 3) == 8
+    assert simple_calculator("add", -2, 2) == 0
+    assert simple_calculator("add", 0, 0) == 0
+
+def test_subtraction():
+    assert simple_calculator("subtract", 5, 3) == 2
+    assert simple_calculator("subtract", -2, 2) == -4
+    assert simple_calculator("subtract", 0, 0) == 0
+
+def test_multiplication():
+    assert simple_calculator("multiply", 5, 3) == 15
+    assert simple_calculator("multiply", -2, 2) == -4
+    assert simple_calculator("multiply", 0, 0) == 0
+
+def test_division():
+    assert simple_calculator("divide", 6, 3) == 2
+    assert simple_calculator("divide", -6, 2) == -3
+    assert simple_calculator("divide", 0, 1) == 0
